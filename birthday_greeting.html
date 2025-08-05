@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Someone Special</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;500&display=swap">
+    <style>
+        :root {
+            --primary: #ff6b81;
+            --secondary: #ff8e8e;
+            --accent: #fdcb6e;
+            --text: #2d3436;
+            --light: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #fef9ff 100%);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .highlight {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 500;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 300px;
+            margin: 2rem 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .audio-player {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .audio-player h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .play-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(255, 107, 129, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(255, 107, 129, 0.4);
+        }
+
+        .progress-container {
+            width: 100%;
+            max-width: 300px;
+            height: 5px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .time {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            text-align: right;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .container {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            .container {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .message {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="confetti-container" id="confetti"></div>
+    <div class="container">
+        <h1>Happy Birthday, <span class="highlight">Misel</span></h1>
+        
+        <div class="image-container">
+            <img src="WhatsApp Image 2025-08-05 at 14.06.57_6506deba.jpg" alt="Romantic birthday setting with golden balloons, roses, and candlelight in an elegant dining room" />
+        </div>
+        
+        <div class="message">
+            <p>haii misel, 
+                Happy Birthday.</p>
+            <p>I wasn’t sure if I should write this. I sat with the thought for a while, wondering if reaching out was the right thing to do. but in the end, I knew I had to. because today is your day. and no matter how much time has passed, no matter how distant we might be now… you still matter to me. deeply.
+            </p>
+            <p>It’s been one year, three months, and four days since we said goodbye. and not a single one of those days has gone by without a thought of you crossing my mind. sometimes it’s soft and fleeting—your laugh, your smile, the way you’d say my name. other times it stays longer—memories we made, things I wish I could’ve said better, or done differently.
+            </p>
+            <p>I don’t know if you’ll ever fully understand the impact you had on me. you taught me things I didn’t even know I needed to learn—about love, about patience, about myself. being with you was one of the most honest parts of my life. and even though we’re no longer together, that truth hasn’t changed.
+you were a light in my life. and honestly, a part of me still hopes you're shining even brighter now, in your own world, chasing your own dreams. I hope you’re surrounded by love—the kind that makes you feel safe, seen, and celebrated. because if anyone deserves that, it’s you.
+</p>
+            <p>I’m not writing this to reopen old doors or stir up anything uncomfortable. I’m writing because love, real love, doesn’t always go away when people part. Sometimes it just changes shape. It becomes quieter, but still present. It turns into a kind of silent cheering from afar, and that’s what this message is.
+</p>
+            <p>I still love you. I don’t say that expecting anything in return—I say it because it’s true. and I’ve learned that sometimes, love doesn’t need to take up space in someone’s life to still exist in your own.
+</p>
+            <p>so wherever you are today, I hope the sun feels a little warmer. I hope the sky looks a little more beautiful. I hope you laugh until your stomach hurts and smile so much your cheeks get sore. Because it’s your birthday. and you deserve a day that reflects even a fraction of the light you bring into this world.
+
+</p>
+            <p>thank you for everything you were to me. thank you for existing. thank you for being someone I’ll always quietly root for.
+</p>
+            <p>happy birthday, misel.
+from someone who loved you, and still does
+.</p>
+            <p>– Sena</p>    
+        </div>
+        
+        <div class="audio-player">
+            <h2>For You</h2>
+            <p style="margin-bottom: 1rem; text-align: center;">"an art gallery could never be as unique as you"</p>
+            <div class="player-controls">
+                <button class="play-btn" id="playBtn">►</button>
+            </div>
+            <div class="progress-container" id="progressContainer">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="time">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+            <audio id="audio" src="wwd.mp3juice.blog - AN ART GALLERY COULD NEVER BE AS UNIQUE AS YOU - MRLD (lirik terjemahan) lagu tiktok viral (320 KBps).mp3"></audio>
+        </div>
+        
+        <div class="signature">
+            With all my love
+        </div>
+    </div>
+
+    <script>
+        // Audio player functionality
+        const audio = document.getElementById('audio');
+        const playBtn = document.getElementById('playBtn');
+        const progress = document.getElementById('progress');
+        const progressContainer = document.getElementById('progressContainer');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const confettiContainer = document.getElementById('confetti');
+
+        // Play/pause song
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.textContent = '❚❚';
+                createConfetti();
+            } else {
+                audio.pause();
+                playBtn.textContent = '►';
+            }
+        }
+
+        // Update progress bar
+        function updateProgress(e) {
+            const { duration, currentTime } = e.srcElement;
+            const progressPercent = (currentTime / duration) * 100;
+            progress.style.width = `${progressPercent}%`;
+            
+            // Calculate display for duration
+            let durationMinutes = Math.floor(duration / 60);
+            let durationSeconds = Math.floor(duration % 60);
+            if (durationSeconds < 10) {
+                durationSeconds = `0${durationSeconds}`;
+            }
+            
+            // Delay switching duration element to avoid NaN
+            if (durationSeconds) {
+                durationEl.textContent = `${durationMinutes}:${durationSeconds}`;
+            }
+        }
+
+        // Set progress
+        function setProgress(e) {
+            const width = this.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            audio.currentTime = (clickX / width) * duration;
+        }
+
+        // Update time
+        function updateTime() {
+            let currentMinutes = Math.floor(audio.currentTime / 60);
+            let currentSeconds = Math.floor(audio.currentTime % 60);
+            if (currentSeconds < 10) {
+                currentSeconds = `0${currentSeconds}`;
+            }
+            currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
+        }
+
+        // Confetti effect
+        function createConfetti() {
+            const colors = ['#ff6b81', '#ff8e8e', '#fdcb6e', '#74b9ff', '#a29bfe'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'absolute';
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = -10 + 'px';
+                confetti.style.borderRadius = '50%';
+                confetti.style.opacity = Math.random() + 0.5;
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                const animationDuration = Math.random() * 3 + 3;
+                confetti.style.animation = `fall ${animationDuration}s linear forwards`;
+                
+                document.getElementById('confetti').appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, animationDuration * 1000);
+            }
+            
+            // Add animation style if not already present
+            if (!document.getElementById('confetti-style')) {
+                const style = document.createElement('style');
+                style.id = 'confetti-style';
+                style.textContent = `
+                    @keyframes fall {
+                        to {
+                            transform: translateY(100vh) rotate(360deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Event listeners
+        playBtn.addEventListener('click', togglePlay);
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('timeupdate', updateTime);
+        audio.addEventListener('ended', () => {
+            playBtn.textContent = '►';
+            progress.style.width = '0%';
+        });
+        progressContainer.addEventListener('click', setProgress);
+
+        // Initialize with current time
+        updateTime();
+    </script>
+</body>
+</html>
+
